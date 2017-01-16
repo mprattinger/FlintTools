@@ -1,13 +1,5 @@
-﻿using FlintTools.Contracts.ServiceContracts;
-using FlintTools.DAL;
-using FlintTools.DAL.Services.Tasks;
-using Microsoft.Practices.Unity;
+﻿using FlintTools.DAL;
 using Prism.Unity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Tasks;
 
@@ -28,8 +20,6 @@ namespace FlintTools
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-
-            Container.RegisterInstance<ITasksService>(new TasksService());
         }
 
         protected override void ConfigureModuleCatalog()

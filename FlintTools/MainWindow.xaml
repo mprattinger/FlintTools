@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FlintTools"
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow">
     <Grid>
         <ContentControl prism:RegionManager.RegionName="MainRegion" />
     </Grid>

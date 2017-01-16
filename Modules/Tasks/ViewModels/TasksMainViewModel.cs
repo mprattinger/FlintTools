@@ -4,6 +4,7 @@ using FlintTools.Contracts.ServiceContracts;
 using FlintTools.Contracts.ViewModels;
 using Prism.Commands;
 using Prism.Regions;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -48,8 +49,12 @@ namespace Tasks.ViewModels
                 //await _tasksService.AddTask(task);
                 //Loaded();
 
-                _regionManager.RequestNavigate(RegionNames.MainContentRegion, "TaskDetailView");
+                var par = new NavigationParameters();
+                par.Add("ID", null);
 
+                _regionManager.RequestNavigate(RegionNames.MainContentRegion, "TaskDetailView", par);
+                //var reg = _regionManager.Regions[RegionNames.MainContentRegion];
+                //reg.NavigationService.RequestNavigate("TaskDetailView", par);
             });
         }
 
