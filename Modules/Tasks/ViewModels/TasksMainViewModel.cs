@@ -7,6 +7,7 @@ using Prism.Regions;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Tasks.Models;
 
 namespace Tasks.ViewModels
 {
@@ -35,6 +36,28 @@ namespace Tasks.ViewModels
             }
         }
 
+        private ObservableCollection<TaskStatusModel> _status;
+        public ObservableCollection<TaskStatusModel> Status
+        {
+            get { return _status; }
+            set
+            {
+                SetProperty(ref _status, value);
+            }
+        }
+
+        private TaskStatusModel _currentStatus;
+        public TaskStatusModel CurrentStatus
+        {
+            get { return _currentStatus; }
+            set
+            {
+                SetProperty(ref _currentStatus, value);
+                statusChanged();
+
+            }
+        }
+
         public DelegateCommand NewTask { get; set; }
         public DelegateCommand DeleteTask { get; set; }
 
@@ -45,26 +68,33 @@ namespace Tasks.ViewModels
 
             NewTask = new DelegateCommand(() =>
             {
-                //var task = new TaskItem { Title = "Neu 01", Description = "Ein neuer Task wird angelegt!" };
-                //await _tasksService.AddTask(task);
-                //Loaded();
-
                 var par = new NavigationParameters();
                 par.Add("ID", null);
 
                 _regionManager.RequestNavigate(RegionNames.MainContentRegion, "TaskDetailView", par);
-                //var reg = _regionManager.Regions[RegionNames.MainContentRegion];
-                //reg.NavigationService.RequestNavigate("TaskDetailView", par);
             });
+
+            Status = new ObservableCollection<TaskStatusModel>(TaskExts.TaskStatusValues(true));
+
         }
 
-        public override async void Loaded()
+        public override void Loaded()
         {
             base.Loaded();
 
+            loadData();
+        }
+
+        private async void loadData()
+        {
             IsBusy = true;
             Tasks = new ObservableCollection<TaskItem>(await _tasksService.GetAllTasks());
             IsBusy = false;
+        }
+
+        private void statusChanged()
+        {
+
         }
     }
 }

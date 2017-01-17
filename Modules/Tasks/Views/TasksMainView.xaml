@@ -23,10 +23,11 @@
                        Style="{StaticResource ContentLabel}"/>
                 <ComboBox x:Name="soldto" 
                       Width="200"
-                      DataContext="{Binding TaskState}">
+                      ItemsSource="{Binding Status}"
+                          SelectedItem="{Binding CurrentStatus}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Value}"  />
+                            <TextBlock Text="{Binding Description}"  />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
